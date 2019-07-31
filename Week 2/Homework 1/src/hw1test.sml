@@ -37,7 +37,11 @@ val test7_0 = date_to_string (2013, 6, 1) = "June 1, 2013"
 val test7_1 = date_to_string (2012, 12, 31) = "December 31, 2012"
 
 val test8_0 = number_before_reaching_sum (10, [1,2,3,4,5]) = 3
-val test8_1 = number_before_reaching_sum (15, [1,2,4,8,16]) = 4
+val test8_1 = number_before_reaching_sum (15, [1,2,4,8,16]) = 3
+val test8_2 = number_before_reaching_sum (1, [2]) = 0
+val test8_3 = number_before_reaching_sum (5, [3,1,2]) = 2
+val test8_5 = number_before_reaching_sum (5, [3,2,2]) = 1
+val test8_6 = number_before_reaching_sum (6, [4,1,1,1]) = 2
 
 val test9_0 = what_month 70 = 3
 val test9_1 = what_month 365 = 12
