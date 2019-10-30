@@ -5,9 +5,13 @@
 
 use "hw1.sml";
 
-val test1_0 = is_older ((1,2,3),(2,3,4)) = true
-val test1_1 = is_older ((1,1,3),(1,2,3)) = true
-val test1_2 = is_older ((1,2,2),(1,2,3)) = true
+val test1_0 = is_older ((1,1,1),(2,1,1)) = true
+val test1_1 = is_older ((2,1,1),(1,1,1)) = false
+val test1_2 = is_older ((1,1,1),(1,2,1)) = true
+val test1_3 = is_older ((1,2,1),(1,1,1)) = false
+val test1_4 = is_older ((1,1,1),(1,1,2)) = true
+val test1_5 = is_older ((1,1,2),(1,1,1)) = false
+val test1_6 = is_older ((1,1,1),(1,1,1)) = false
 
 val test2_0 = number_in_month ([(2012,2,28),(2013,12,1)],2) = 1
 val test2_1 = number_in_month ([],12) = 0
