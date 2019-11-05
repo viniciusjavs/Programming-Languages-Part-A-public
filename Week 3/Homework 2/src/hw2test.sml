@@ -60,3 +60,20 @@ val test9_1 = sum_cards [(Spades, Num 2)] = 2
 val test9_2 = sum_cards [] = 0
 val test9_3 = sum_cards [(Clubs, Ace), (Diamonds, King)] = 21
 val test9_4 = sum_cards [(Clubs, Jack), (Hearts, Queen)] = 20
+
+val test10_0 = score ([(Hearts, Num 2),(Clubs, Num 4)],10) = 4
+val test10_1 = score ([(Hearts, Num 2),(Clubs, Num 4)],6) = 0
+val test10_2 = score ([(Hearts, Num 2),(Clubs, Num 4)],2) = 12
+val test10_3 = score ([(Hearts, Num 2),(Diamonds, Num 4)],10) = 2
+val test10_4 = score ([(Hearts, Num 2),(Clubs, Num 4)],0) = 18
+val test10_5 = score ([(Spades, Num 2),(Clubs, Num 4)],0) = 9
+
+val test11_0 = officiate ([(Hearts, Num 2),(Clubs, Num 4)],[Draw], 15) = 6
+val test11_1 = officiate ([(Clubs,Ace),(Spades,Ace),(Clubs,Ace),(Spades,Ace)],
+                          [Draw,Draw,Draw,Draw,Draw],
+                          42) = 3
+val test11_2 = ((officiate([(Clubs,Jack),(Spades,Num(8))],
+                           [Draw,Discard(Hearts,Jack)],
+                           42);
+		 false)
+		handle IllegalMove => true)
