@@ -11,6 +11,8 @@ val test1_2 = all_except_option ("string", ["string_one","string_two"]) = NONE
 val test1_3 = all_except_option ("string", ["string","string_two"]) = SOME ["string_two"]
 val test1_4 = all_except_option ("string", ["string_one","string"]) = SOME ["string_one"]
 val test1_5 = all_except_option ("string", ["string","string_one","string_two"]) = SOME ["string_one","string_two"]
+val test1_6 = all_except_option ("string", ["string_one","string_two","string"]) = SOME ["string_one","string_two"]
+val test1_7 = all_except_option ("string", ["string_one","string","string_two"]) = SOME ["string_one","string_two"]
 
 val test2_0 = get_substitutions1 ([["foo"], ["there"]], "foo") = []
 val test2_1 = get_substitutions1 ([[], []], "foo") = []
@@ -27,11 +29,16 @@ val test3_2 = get_substitutions2 ([], "foo") = []
 val test3_3 = get_substitutions2 ([["foo", "bar"], ["there"]], "foo") = ["bar"]
 val test3_4 = get_substitutions2 ([["foo"], ["there", "bar"]], "foo") = []
 val test3_5 = get_substitutions2 ([["foo"], ["there", "bar"]], "bar") = ["there"]
-val test3_6 = get_substitutions2 ([["Fred","Fredrick"],["Elizabeth","Betty"],["Freddie","Fred","F"]], "Fred") =  ["Fredrick","Freddie","F"]
+val test3_6 = get_substitutions2 ([["Fred","Fredrick"],["Elizabeth","Betty"],["Freddie","Fred","F"]], "Fred") = ["Fredrick","Freddie","F"]
 val test3_7 = get_substitutions2 ([["Fred","Fredrick"],["Jeff","Jeffrey"],["Geoff","Jeff","Jeffrey"]],"Jeff") = ["Jeffrey","Geoff","Jeffrey"]
 
-val test4_0 = similar_names ([["Fred","Fredrick"],["Elizabeth","Betty"],["Freddie","Fred","F"]], {first="Fred", middle="W", last="Smith"}) = [{first="Fred", last="Smith", middle="W"}, {first="Fredrick", last="Smith", middle="W"}, {first="Freddie", last="Smith", middle="W"}, {first="F", last="Smith", middle="W"}]
-val test4_1 = similar_names ([["Fredrick"],["Elizabeth","Betty"],["Freddie","F"]], {first="Fred", middle="W", last="Smith"}) = [{first="Fred", last="Smith", middle="W"}]
+val test4_0 = similar_names ([["Fred","Fredrick"],["Elizabeth","Betty"],["Freddie","Fred","F"]], {first="Fred", middle="W", last="Smith"}) =
+	      [{first="Fred", last="Smith", middle="W"},
+	       {first="Fredrick", last="Smith", middle="W"},
+	       {first="Freddie", last="Smith", middle="W"},
+	       {first="F", last="Smith", middle="W"}]
+val test4_1 = similar_names ([["Fredrick"],["Elizabeth","Betty"],["Freddie","F"]], {first="Fred", middle="W", last="Smith"}) =
+	      [{first="Fred", last="Smith", middle="W"}]
 val test4_2 = similar_names ([], {first="Fred", middle="W", last="Smith"}) = [{first="Fred", last="Smith", middle="W"}]
 
 val test5_0 = card_color (Clubs, Num 2) = Black
@@ -46,9 +53,11 @@ val test6_3 = card_value (Spades, Queen) = 10
 
 val test7_0 = remove_card ([(Hearts, Ace)], (Hearts, Ace), IllegalMove) = []
 val test7_1 = remove_card ([(Hearts, Ace), (Spades, Queen)], (Hearts, Ace), IllegalMove) = [(Spades, Queen)]
-val test7_2 = ((remove_card ([(Hearts, Ace)], (Spades, Queen), IllegalMove); false)
+val test7_2 = remove_card ([(Hearts, Ace), (Spades, Queen), (Clubs, Ace)], (Clubs, Ace), IllegalMove) = [(Hearts, Ace), (Spades, Queen)]
+val test7_3 = remove_card ([(Hearts, Ace), (Spades, Queen), (Spades, Queen)], (Spades, Queen), IllegalMove) = [(Hearts, Ace),(Spades, Queen)]
+val test7_4 = ((remove_card ([(Hearts, Ace)], (Spades, Queen), IllegalMove); false)
 	       handle IllegalMove => true)
-val test7_3 = ((remove_card ([], (Hearts, Ace), IllegalMove); false) handle IllegalMove => true)
+val test7_5 = ((remove_card ([], (Hearts, Ace), IllegalMove); false) handle IllegalMove => true)
 
 val test8_0 = all_same_color [(Hearts, Ace), (Hearts, Ace)] = true
 val test8_1 = all_same_color [(Clubs,Ace)] = true
